@@ -6,5 +6,3 @@ function my_api_module_call_api($input) {
   $data = json_decode($response->getBody()->getContents(), TRUE);
   drupal_set_message(print_r($data, TRUE));
 }
-
-
