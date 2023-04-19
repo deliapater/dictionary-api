@@ -1,7 +1,0 @@
-dictionary_api.dictionary_api_form:
-  path: '/dictionary_api/dictionary'
-  defaults:
-    _controller: '\Drupal\dictionary_api\Controller\DictionaryApi::view'
-    _title: 'Dictionary Api'
-  requirements: 
-    _permission: 'access content'

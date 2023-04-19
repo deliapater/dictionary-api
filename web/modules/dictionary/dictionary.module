@@ -1,0 +1,10 @@
+<?php
+
+function my_api_module_call_api($input) {
+  $url = 'https://api.dictionaryapi.dev/api/v2/entries/en_US/' . $input;
+  $response = \Drupal::httpClient()->get($url);
+  $data = json_decode($response->getBody()->getContents(), TRUE);
+  drupal_set_message(print_r($data, TRUE));
+}
+
+

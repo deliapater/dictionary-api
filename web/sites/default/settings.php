@@ -811,7 +811,7 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 # $settings['migrate_file_public_path'] = '';
 # $settings['migrate_file_private_path'] = '';
 $settings['trusted_host_patterns'] = array(
-  '^dictionary_api.lndo.site',
+  '^dictionary.lndo.site$',
 );
 
 
