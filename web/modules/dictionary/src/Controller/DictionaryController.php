@@ -19,7 +19,6 @@ class DictionaryController extends ControllerBase {
    *   The API response as a render array.
    */
   public function callApi($input) {
-    dd('got here');
     $response = my_api_module_make_api_call($input);
 
     // Return the response as a render array.
