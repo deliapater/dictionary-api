@@ -36,10 +36,18 @@ class DictionaryForm extends FormBase {
         'wrapper' => 'my-api-response',
       ],
     ];
+     // Add a container for the definition.
+    $form['definition'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'id' => 'definition-container',
+      ],
+    ];
+
     return $form;
   }
 
-  public function myCallbackMethod(array &$form, FormStateInterface $form_state) {
+public function myCallbackMethod(array &$form, FormStateInterface $form_state) {
     $input = $form_state->getValue('input');
 
     // Make an API call with GuzzleHttp\Client.
@@ -48,13 +56,20 @@ class DictionaryForm extends FormBase {
 
     // Get the response body.
     $response_body = (string) $response->getBody();
+    $response_data = json_decode($response_body, TRUE);
+
+    // Get the definition of the first result.
+    $definition = '';
+    if (!empty($response_data[0]['meanings'][0]['definitions'][0]['definition'])) {
+      $definition = $response_data[0]['meanings'][0]['definitions'][0]['definition'];
+    }
 
     // Return the response as an Ajax command.
     $ajax_response = new \Drupal\Core\Ajax\AjaxResponse();
-    $ajax_response->addCommand(new \Drupal\Core\Ajax\HtmlCommand('#my-api-response', $response_body));
+    $ajax_response->addCommand(new \Drupal\Core\Ajax\HtmlCommand('#definition-container', $definition));
 
     return $ajax_response;
-  }
+}
 
 
   /**
