@@ -47,29 +47,29 @@ class DictionaryForm extends FormBase {
     return $form;
   }
 
-public function myCallbackMethod(array &$form, FormStateInterface $form_state) {
-    $input = $form_state->getValue('input');
+  public function myCallbackMethod(array &$form, FormStateInterface $form_state) {
+      $input = $form_state->getValue('input');
 
-    // Make an API call with GuzzleHttp\Client.
-    $client = new Client(['base_uri' => 'https://api.dictionaryapi.dev/api/v2/entries/en/']);
-    $response = $client->request('GET', $input);
+      // Make an API call with GuzzleHttp\Client.
+      $client = new Client(['base_uri' => 'https://api.dictionaryapi.dev/api/v2/entries/en/']);
+      $response = $client->request('GET', $input);
 
-    // Get the response body.
-    $response_body = (string) $response->getBody();
-    $response_data = json_decode($response_body, TRUE);
+      // Get the response body.
+      $response_body = (string) $response->getBody();
+      $response_data = json_decode($response_body, TRUE);
 
-    // Get the definition of the first result.
-    $definition = '';
-    if (!empty($response_data[0]['meanings'][0]['definitions'][0]['definition'])) {
-      $definition = $response_data[0]['meanings'][0]['definitions'][0]['definition'];
-    }
+      // Get the definition of the first result.
+      $definition = '';
+      if (!empty($response_data[0]['meanings'][0]['definitions'][0]['definition'])) {
+        $definition = $response_data[0]['meanings'][0]['definitions'][0]['definition'];
+      }
 
-    // Return the response as an Ajax command.
-    $ajax_response = new \Drupal\Core\Ajax\AjaxResponse();
-    $ajax_response->addCommand(new \Drupal\Core\Ajax\HtmlCommand('#definition-container', $definition));
+      // Return the response as an Ajax command.
+      $ajax_response = new \Drupal\Core\Ajax\AjaxResponse();
+      $ajax_response->addCommand(new \Drupal\Core\Ajax\HtmlCommand('#definition-container', $definition));
 
-    return $ajax_response;
-}
+      return $ajax_response;
+  }
 
 
   /**
