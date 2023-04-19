@@ -15,8 +15,5 @@ This Drupal module provides a block that allows users to enter a word and get it
 ## License
 This module is released under the MIT License. See the LICENSE file for details.
 
-### Screenshot
-![Application Screenshot](https://photos.google.com/search/_tra_/photo/AF1QipPWulckTGWBGVjX9NtTPCqZhkJ0evkR0c8zmi6p)
-
 
 
