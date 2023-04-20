@@ -33,5 +33,4 @@ class DictionaryBlock extends BlockBase {
       'response' => $response,
     ];
   }
-
 }
