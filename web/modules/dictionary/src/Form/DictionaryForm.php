@@ -5,7 +5,7 @@ namespace Drupal\dictionary\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\AjaxResponse;
-use GuzzleHttp\Client;
+use Drupal\Component\Serialization\Json;
 
 /**
  * Provides a form for calling an API with an input and updating a block.
@@ -50,13 +50,13 @@ class DictionaryForm extends FormBase {
   public function myCallbackMethod(array &$form, FormStateInterface $form_state) {
       $input = $form_state->getValue('input');
 
-      // Make an API call with GuzzleHttp\Client.
-      $client = new Client(['base_uri' => 'https://api.dictionaryapi.dev/api/v2/entries/en/']);
-      $response = $client->request('GET', $input);
+      // Make an API call with Drupal's built-in HTTP client.
+      $url = 'https://api.dictionaryapi.dev/api/v2/entries/en/' . $input;
+      $response = \Drupal::httpClient()->get($url);
 
       // Get the response body.
       $response_body = (string) $response->getBody();
-      $response_data = json_decode($response_body, TRUE);
+      $response_data = Json::decode($response_body);
 
       // Get the definition of the first result.
       $definition = '';
@@ -70,7 +70,6 @@ class DictionaryForm extends FormBase {
 
       return $ajax_response;
   }
-
 
   /**
    * {@inheritdoc}
